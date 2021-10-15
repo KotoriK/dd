@@ -5,6 +5,8 @@ import { importJSON } from "./utils/importJSON.mjs"
 import { getCQImage } from './cq.mjs'
 import logger, { parseError } from "./logger.mjs"
 import { writeFileSync } from 'fs'
+import {resolve} from 'path'
+
 export async function main() {
     const { subs } = importJSON('./config.json')
     const SUBS = importJSON('./subscribe.json', { mid: [], room_id: [], info: {} })

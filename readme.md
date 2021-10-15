@@ -8,3 +8,6 @@ npm i
 npx pm2 start ecosystem.config.js
 ```
 JSON文件应该会自动创建并填充默认值
+
+## 其他
+珍爱生命，从使用TypeScript做起
