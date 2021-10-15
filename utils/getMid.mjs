@@ -11,7 +11,7 @@ async function getMid(room_id) {
     return uid
 }
 async function main() {
-    const SUBS = importJSON('./subscribe.json')
+    const SUBS = importJSON('./subscribe.json', { mid: [], room_id: [] })
     const { room_id, mid } = SUBS
     const results = await Promise.allSettled(room_id.map(async item => [item, await getMid(item)]))
     const successResult = results.filter(result => result.status == "fulfilled")

@@ -7,7 +7,7 @@ import logger, { parseError } from "./logger.mjs"
 
 export async function main() {
     const { subs } = importJSON('./config.json')
-    const SUBS = importJSON('./subscribe.json')
+    const SUBS = importJSON('./subscribe.json', { mid: [], room_id: [] })
     const { mid: mids } = SUBS
     try {
         for (const mid of mids) {

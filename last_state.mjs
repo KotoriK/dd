@@ -7,7 +7,7 @@ import logger,{parseError} from './logger.mjs'
  */
 export let StateCache = new Map()
 try {
-    const last_state = importJSON('./cache/last_state.json')
+    const last_state = importJSON('./cache/last_state.json',[])
     StateCache = new Map(last_state)
 }
 catch (e) {
