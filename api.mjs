@@ -25,4 +25,4 @@ export const authHeader = () => {
         Authorization: 'Bearer ' + accessToken
     }
 }
-export const getBaseUrl = () => `${host}:${port}`
+export const getBaseUrl = () => `http://${host}:${port}`
