@@ -11,23 +11,25 @@ export async function getInfo(userId) {
     let dataReturn
     try {
         dataReturn = await resp.json()
-        const {
-            data: {
-                mid,
-                name,
-                live_room: {
-                    url, cover, title, liveStatus, roundStatus, roomid, roomStatus,
+        if (resp.ok) {
+            const {
+                data: {
+                    mid,
+                    name,
+                    live_room: {
+                        url, cover, title, liveStatus, roundStatus, roomid, roomStatus,
+                    }
                 }
+            } = dataReturn
+            return {
+                name,
+                url,
+                cover,
+                title,
+                roomid,
+                mid,
+                status: (liveStatus == 1 && 'LIVE') || (roundStatus == 1 && 'ROUND') || (roomStatus == 1 && 'CLOSE') || 'END'
             }
-        } = dataReturn
-        return {
-            name,
-            url,
-            cover,
-            title,
-            roomid,
-            mid,
-            status: (liveStatus == 1 && 'LIVE') || (roundStatus == 1 && 'ROUND') || (roomStatus == 1 && 'CLOSE') || 'END'
         }
     } catch (e) {
         logger.error(`B站API数据拉取失败: ${resp.status}\nbody: ${JSON.stringify(dataReturn)}\n${parseError(e)}`)
