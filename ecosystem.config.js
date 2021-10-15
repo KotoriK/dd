@@ -1,7 +1,8 @@
 module.exports = {
   apps: [{
     script: 'index.mjs',
-    args:'-t'
+    args:'-t',
+    restart_delay:'3600000'
   }],
 
   deploy: {
