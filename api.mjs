@@ -10,7 +10,7 @@ const { host, port, accessToken } = importJSON('./config.json')
  * @param {boolean} auto_escape 
  * @returns {Promise<number>}
  */
-export const send_private_msg = (user_id, group_id, message, auto_escape = false) => fetch(getBaseUrl() + '/send_private_msg?' + stringify({ user_id, group_id, message, auto_escape }))
+export const send_private_msg = (user_id, group_id, message, auto_escape = false) => fetch(getBaseUrl() + '/send_private_msg?' + stringify({ user_id, group_id, message, auto_escape })).then((resp)=>resp.text())
 /**
  * 
  * @param {number} group_id 
@@ -18,7 +18,7 @@ export const send_private_msg = (user_id, group_id, message, auto_escape = false
  * @param {boolean} auto_escape 
  * @returns {Promise<number>}
  */
-export const send_group_msg = (group_id, message, auto_escape = false) => fetch(getBaseUrl() + '/send_group_msg?' + stringify({ user_id, group_id, message, auto_escape }))
+export const send_group_msg = (group_id, message, auto_escape = false) => fetch(getBaseUrl() + '/send_group_msg?' + stringify({ user_id, group_id, message, auto_escape })).then((resp)=>resp.text())
 
 export const authHeader = () => {
     return {
