@@ -12,7 +12,7 @@ const logger = winston.createLogger({
         timestamp({
             format: 'YYYY-MM-DD hh:mm:ss.SSS A'
         }),
-        printf(({ level, message, label, timestamp }) => `${timestamp} ${level}: ${message}`)
+        printf(({ level, message, timestamp }) => `${timestamp} ${level}: ${message}`)
     )
 
 })
