@@ -16,7 +16,11 @@ const args = yargs(hideBin(process.argv))
     .argv
 
 if (args.schedule == true) {
-    setInterval(main, interval)
+    timer()
 } else {
     main()
+}
+async function timer() {
+    await main()
+    setTimeout(timer, interval)
 }
