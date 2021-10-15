@@ -19,6 +19,7 @@ export async function main() {
             if (isStatusChanged(info)) {
                 if (info.status == 'LIVE') {
                     for (const sub of subs) {
+                        let msgId
                         const msg = `${info.name}开始直播了哦\n今天的标题是：${info.title}\n${getCQImage(info.cover)}\n${info.url}`
                         if (typeof sub == 'object') {
                             /* {
@@ -27,7 +28,6 @@ export async function main() {
                                 "subTo"?: []
                             } */
                             const { type, id, subTo } = sub
-                            let msgId
                             if (!subTo || subTo.includes(mid)) {
                                 msgId = await send_msg(type, id, message)
                             }
