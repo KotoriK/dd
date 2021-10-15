@@ -75,6 +75,6 @@ typings/
 # FuseBox cache
 .fusebox/
 
-cache
+cache/*.json
 subscribe.json
 config.json
