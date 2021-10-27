@@ -4,8 +4,9 @@ import { saveState, updateState } from "./last_state.mjs"
 import { importJSON } from "./utils/importJSON.mjs"
 import { getCQImage } from './cq.mjs'
 import logger, { parseError } from "./logger.mjs"
-import { writeFileSync } from 'fs'
-import {resolve} from 'path'
+import { writeFile } from "fs/promises"
+import { resolve } from 'path'
+import { getKeyframeByRoomId } from "bililive-keyframe"
 
 export async function main() {
     const { subs } = importJSON('./config.json')
@@ -19,7 +20,9 @@ export async function main() {
             if (isStatusChanged(info)) {
                 if (info.status == 'LIVE') {
                     for (const sub of subs) {
-                        const msg = `${info.name}开始直播了哦\n今天的标题是：${info.title}\n${getCQImage(info.cover)}\n${info.url}`
+                        const msg = `${info.name}开始直播了哦\n今天的标题是：${info.title}
+                        ${getCQImage(await saveImageThenReturnPath(await getKeyframeByRoomId({ cid: info.roomid, qn: 10000, platform: 'h5' }), info.roomid) || info.cover)}
+                        ${info.url}`
                         if (typeof sub == 'object') {
                             /* {
                                 "type": "group",
@@ -41,7 +44,7 @@ export async function main() {
                 updateState(mid, info.status)
                 saveState()
             }
-            writeFileSync(resolve(process.cwd(), './subscribe.json'), JSON.stringify({ ...SUBS, info: infoCache }))
+            writeFile(resolve(process.cwd(), './subscribe.json'), JSON.stringify({ ...SUBS, info: infoCache }))
             /**没有改动运行需要的值所以不需要清理缓存 */
         }
     } catch (e) {
@@ -59,5 +62,12 @@ function send_msg(type, id, message, auto_escape) {
         return send_group_msg(id, message, auto_escape)
     } else {
         return send_private_msg(id, undefined, message, auto_escape)
+    }
+}
+async function saveImageThenReturnPath(buf, name) {
+    if (buf instanceof Buffer) {
+        const path = resolve(process.cwd(), './cache', name, ".jpg")
+        await writeFile(path, buf)
+        return path
     }
 }
