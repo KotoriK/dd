@@ -19,6 +19,7 @@ export async function main() {
             Object.defineProperty(infoCache, mid, { value: { name: info.name, room_id: info.roomid }, enumerable: true })
             if (isStatusChanged(info)) {
                 if (info.status == 'LIVE') {
+                    let msgId
                     for (const sub of subs) {
                         const msg = `${info.name}开始直播了哦\n今天的标题是：${info.title}
                         ${getCQImage(await saveImageThenReturnPath(await getKeyframeByRoomId({ cid: info.roomid, qn: 10000, platform: 'h5' }), info.roomid) || info.cover)}
