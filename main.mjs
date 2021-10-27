@@ -30,9 +30,8 @@ export async function main() {
                                 "subTo"?: []
                             } */
                             const { type, id, subTo } = sub
-                            let msgId
                             if (!subTo || subTo.includes(mid)) {
-                                msgId = await send_msg(type, id, message)
+                                msgId = await send_msg(type, id, msg)
                             }
                         } else {
                             //默认认为是个人
