@@ -66,7 +66,7 @@ function send_msg(type, id, message, auto_escape) {
 }
 async function saveImageThenReturnPath(buf, name) {
     if (buf instanceof Buffer) {
-        const path = resolve(process.cwd(), './cache', String(name), ".jpg")
+        const path = resolve(process.cwd(), './cache', String(name)+".jpg")
         await writeFile(path, buf)
         return path
     }
