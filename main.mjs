@@ -16,7 +16,7 @@ export async function main() {
         const infoCache = {}
         for (const mid of mids) {
             const info = await getInfo(mid)
-            Object.defineProperty(infoCache, mid, { value: { name: info.name, room_id: info.roomid }, enumerable: true })
+            infoCache[mid] = { name: info.name, room_id: info.roomid }
             if (isStatusChanged(info)) {
                 if (info.status == 'LIVE') {
                     let msgId
